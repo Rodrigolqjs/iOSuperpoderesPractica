@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  KCHeroesMulti
+
+  Created by Rodrigo Latorre on 30/11/22.
+  
+*/
+
+"PRUEBA" = "Test EN";
+HELLO = "Hola Ingles";
+
+"Entrar" = "Login";
+"Clave" = " Password";
+"Registro" = "Register";
+"No tienes una cuenta?" = "You don't have an account?";
