@@ -12,16 +12,12 @@ struct RootView: View {
     
     var body: some View {
         switch (rootViewModel.status) {
-        case .none:
-            LoginView()
-        case .register:
-            RegisterView()
         case .loading:
             LoaderView()
         case .error(error: let errorString):
             ErrorView(error: errorString)
         case .loaded:
-            HeroesView(viewModel: ViewModelHeroes())
+            MarvelHeroesView(marvelHeroesViewModel: MarvelHeroesViewModel())
         }
     }
 }

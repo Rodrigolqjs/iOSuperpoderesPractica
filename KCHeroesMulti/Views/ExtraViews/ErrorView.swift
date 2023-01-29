@@ -28,7 +28,7 @@ struct ErrorView: View {
                 .font(.headline)
             Spacer()
             Button {
-                viewModel.status = .none
+                viewModel.status = .loading
             } label: {
                 Text("Volver al Login")
                     .font(.title2)
