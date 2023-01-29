@@ -2,7 +2,6 @@ import SwiftUI
 
 struct MarvelHeroesView: View {
     @StateObject var marvelHeroesViewModel: MarvelHeroesViewModel
-    @EnvironmentObject private var rootViewModel: RootViewModel
     
     var body: some View {
         NavigationStack {
@@ -14,6 +13,7 @@ struct MarvelHeroesView: View {
                         } label: {
                             MarvelHeroesRowView(hero: hero)
                         }
+                        .id("Navigation Link")
                     }//ForEach
                 }// iflet
             }// List

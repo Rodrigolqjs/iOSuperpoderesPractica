@@ -12,7 +12,6 @@ struct MarvelHeroesRowView: View {
     
     var body: some View {
         VStack {
-
             AsyncImage(url: URL(string: hero.thumbnail.path+".jpg")) {
                 photo in
                 photo
@@ -30,10 +29,12 @@ struct MarvelHeroesRowView: View {
                     .padding([.leading, .trailing], 20)
                     .opacity(0.6)
             }
+            .id("ImageRow")
             
             Text("\(hero.name)")
                 .font(.title2)
                 .padding([.top, .leading], 10)
+                .id("TextRow")
         }
     }
 }

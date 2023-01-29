@@ -14,7 +14,7 @@ final class MarvelHeroesViewModel: ObservableObject {
     private var suscriptors = Set<AnyCancellable>()
     
     init() {
-            getMarvelHeroes()
+        getMarvelHeroes()
     }
     
     func CancelAll(){
@@ -25,7 +25,6 @@ final class MarvelHeroesViewModel: ObservableObject {
     }
     
     
-    //Estas dos funciones se pueden volver una.
     func getMarvelHeroes() {
         CancelAll()
         URLSession.shared
@@ -52,41 +51,4 @@ final class MarvelHeroesViewModel: ObservableObject {
             .store(in: &suscriptors)
         
     }
-    
-//    func getMarvelHeroesSeriesURL(marvelHero: MarvelHeroModel) {
-//        CancelAll()
-//        print(marvelHero)
-//        marvelHeroesSeries = []
-//        marvelHero.series.items.forEach { serie in
-//            URLSession.shared
-//                .dataTaskPublisher(for: BaseNetwork().getMarvelHeroesURLSession(resourceURI: serie.resourceURI))
-//                .tryMap { url in
-//                    guard let response = url.response as? HTTPURLResponse,
-//                          response.statusCode == 200 else {
-//                        throw URLError(.badServerResponse)
-//                    }
-//                    return url.data
-//                }
-//                .decode(type: MarvelHeroeURLModel.self, decoder: JSONDecoder())
-//                .receive(on: DispatchQueue.main)
-//                .sink { completion in
-//                    switch completion {
-//                    case .finished:
-//                        print("Todo ok getHeroesSeries")
-//                    case .failure(let error):
-//                        print("entro case failure con error\(error)")
-//                    }
-//                } receiveValue: { marvelHeroes in
-//                    let convertedArray: [HeroSeriesModel] = marvelHeroes.data.results.map { (result) -> HeroSeriesModel in
-//                        return HeroSeriesModel(id: result.id,
-//                                               title: result.title,
-//                                               //                                               desc: result.description,
-//                                               urlPath: "\(result.thumbnail.path).\(result.thumbnail.thumbnailExtension)")
-//                    }
-//
-//                    self.marvelHeroesSeries?.append(convertedArray[0])
-//                }
-//                .store(in: &suscriptors)
-//        }
-//    }
 }

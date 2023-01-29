@@ -9,6 +9,8 @@ import SwiftUI
 struct MarvelHeroesDetailView: View {
     
     @StateObject var viewModel = MarvelHeroesDetailViewModel()
+    @State var showModal: Bool = false
+    @State var sendSerie: [HeroSeriesModel] = []
     var hero: MarvelHeroModel
     
     init(hero: MarvelHeroModel) {
@@ -20,7 +22,8 @@ struct MarvelHeroesDetailView: View {
         case .loading:
             let _ = viewModel.getMarvelHeroesSeries(heroId: "\(hero.id)")
         case .loaded:
-            ScrollView(.vertical) {
+//                ScrollView(.vertical) {
+            ZStack {
                 VStack {
                     HStack {
                         Text("\(hero.name)")
@@ -30,82 +33,49 @@ struct MarvelHeroesDetailView: View {
                         Spacer()
                     }
                     .padding([.leading, .trailing], 20)
-                    AsyncImage(url: URL(string: hero.thumbnail.path+".jpg")) { img in
+                    AsyncImage(url: URL(string: (hero.thumbnail.path)+".jpg")) { img in
                         img
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .cornerRadius(20)
-                            .padding([.leading, .trailing], 20)
+                            .padding([.leading, .trailing], 5)
                             .opacity(0.9)
+                            .frame(height: 500)
+                            .frame(maxWidth: .infinity)
                     } placeholder: {
                         Image(systemName: "photo")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .cornerRadius(20)
-                            .padding([.leading, .trailing], 20)
+                            .padding([.leading, .trailing], 5)
                             .opacity(0.6)
+                            .frame(height: 500)
+                            .frame(maxWidth: .infinity)
                     }
-                    
-                    VStack(alignment: .leading) {
+
+                    VStack(alignment: .center) {
                         ScrollView(.horizontal, showsIndicators: false) {
                             if let series = viewModel.series {
                                 LazyHStack {
                                     ForEach(series) { serie in
                                         MarvelHeroesDetailRowView(serie: serie)
+                                            .onTapGesture {
+                                                sendSerie = []
+                                                showModal = true
+                                                sendSerie.append(serie)
+                                            }
                                     }// ForEach
                                 }// LazyHStack
                             }// if let
                         } // ScrollView
                     }
-                }
+                }//
+                ModalDescView(isShowing: $showModal, serie: $sendSerie)
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            //                }
         case .error(error: let error):
             ErrorView(error: error)
         }
     }
 }
-
-//struct MarvelHeroesDetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MarvelHeroesDetailView(
-//            marvelHeroesViewModel: MarvelHeroesViewModel(),
-//            hero: MarvelHeroModel(
-//                id: 1017833,
-//                name: "Ghost Rider (Robbie Reyes)",
-//                description: "",
-//                thumbnail: Thumbnail(path: "http://i.annihil.us/u/prod/marvel/i/mg/1/10/622795c13e687",
-//                                     thumbnailExtension: .jpg),
-//                comics: Comics(
-//                    available: 32,
-//                    collectionURI: "http://gateway.marvel.com/v1/public/characters/1017833/comics",
-//                    items: [
-//                        ComicsItem(
-//                            resourceURI: "http://gateway.marvel.com/v1/public/comics/58635",
-//                            name: "Ghost Rider X-Mas Special Infinite Comic (2016) #1"
-//                        ),
-//                        ComicsItem(
-//                            resourceURI: "http://gateway.marvel.com/v1/public/comics/67002",
-//                            name: "Avengers (2018) #1"
-//                        )
-//                    ],
-//                    returned: 2),
-//
-//                series: Comics(
-//                    available: 17,
-//                    collectionURI: "http://gateway.marvel.com/v1/public/characters/1017833/series",
-//                    items: [
-//                        ComicsItem(
-//                            resourceURI: "http://gateway.marvel.com/v1/public/series/24229",
-//                            name: "Avengers (2018 - Present)"
-//                        ),
-//                        ComicsItem(
-//                            resourceURI: "http://gateway.marvel.com/v1/public/series/32867",
-//                            name: "Avengers Forever (2021 - Present)"
-//                        )
-//                    ],
-//                    returned: 2
-//                )
-//            )
-//        )
-//    }
-//}

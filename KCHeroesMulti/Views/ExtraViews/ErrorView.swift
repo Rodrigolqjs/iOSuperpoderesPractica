@@ -9,8 +9,6 @@ import SwiftUI
 
 struct ErrorView: View {
     
-    @EnvironmentObject var viewModel: RootViewModel
-    
     private var textError: String
     init(error: String) {
         textError = error
@@ -28,7 +26,6 @@ struct ErrorView: View {
                 .font(.headline)
             Spacer()
             Button {
-                viewModel.status = .loading
             } label: {
                 Text("Volver al Login")
                     .font(.title2)

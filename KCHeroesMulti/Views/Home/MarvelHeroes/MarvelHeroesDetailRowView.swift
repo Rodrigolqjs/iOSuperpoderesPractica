@@ -12,11 +12,10 @@ struct MarvelHeroesDetailRowView: View {
     
     init(serie: HeroSeriesModel) {
         self.serie = serie
-        print("se llamo")
     }
     var body: some View {
         VStack{
-            //foto
+            Spacer()
             AsyncImage(url: URL(string: serie.urlPath)) { Image in
                 Image
                     .resizable()
@@ -29,13 +28,22 @@ struct MarvelHeroesDetailRowView: View {
                     .frame(width: 100, height: 100)
                     .padding()
             }
-
-            //nombre y apellido 1
             Text(serie.title)
                 .font(.caption)
                 .foregroundColor(.orange)
-            
+//            if let desc = serie.desc {
+//                Button("Ver descripcion") {
+//                    ModalDescView(isShowing: true, description: desc)
+//                }
+//                .frame(width: 100, height: 50)
+//            }
         }
-        
     }
 }
+
+struct MarvelHeroesDetailRowView_Previews: PreviewProvider {
+    static var previews: some View {
+        MarvelHeroesDetailRowView(serie: HeroSeriesModel(id: 123, title: "titletest", desc: "fast descfast descfast descfast descfast descfast descfast descfast descfast descfast descfast descfast descfast descfast descfast descfast descfast descfast descfast descfast descfast descfast descfast descfast descfast descfast descfast descfast descfast descfasfast descfast descfast descfast descfast descfast descfast descfast descfast descfast descfast descfasfast descfast descfast descfast descfast descfast descfast descfast descfast descfast descfast descfas", urlPath: "noupath"))
+    }
+}
+

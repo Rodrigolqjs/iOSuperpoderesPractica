@@ -9,12 +9,9 @@ import SwiftUI
 
 @main
 struct KCHeroesMultiApp: App {
-    @StateObject var rootViewModel = RootViewModel()
-    
     var body: some Scene {
         WindowGroup {
-            RootView()
-                .environmentObject(rootViewModel)
+            MarvelHeroesView(marvelHeroesViewModel: MarvelHeroesViewModel())
         }
     }
 }
